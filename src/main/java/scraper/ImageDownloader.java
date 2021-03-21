@@ -13,6 +13,12 @@ import java.net.URLConnection;
 
 public class ImageDownloader {
     private static int imageCounter=0;
+    private static String pathToFolder;
+
+    public ImageDownloader(String pathToFolder) {
+        ImageDownloader.pathToFolder=pathToFolder;
+    }
+
 
     /**
      * This method receives a document obtained with the DocObtainer and searches for images.
@@ -68,7 +74,7 @@ public class ImageDownloader {
                 ImageDownloader.imageCounter++;
                 String imageName = imageCounter + ".jpg";
                 OutputStream os =
-                        new FileOutputStream("D:/images" + "/" + imageName);
+                        new FileOutputStream(ImageDownloader.pathToFolder + "/" + imageName);
 
                 while ((n = in.read(buffer)) != -1) {
                     os.write(buffer, 0, n);

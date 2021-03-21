@@ -10,12 +10,28 @@ import org.jsoup.nodes.Document;
 public class App {
     private static String startPageUrl;
     private static int imageSizeKilobytes;
+    private static String pathToFolder;
+
+    public static String getStartPageUrl() {
+        return startPageUrl;
+    }
+
+    public static int getImageSizeKilobytes() {
+        return imageSizeKilobytes;
+    }
+
+    public static String getPathToFolder() {
+        return pathToFolder;
+    }
+
+
+
 
     public static void main(String[] args) throws IOException {
         init();
 
         DocObtainer io = new DocObtainer();
-        ImageDownloader id = new ImageDownloader();
+        ImageDownloader id = new ImageDownloader(pathToFolder);
         ChildFinderGeneral cfg = new ChildFinderGeneral();
         Set<String> childrenPages;
 
@@ -49,6 +65,7 @@ public class App {
         }
     }
 
+
     public static void init() {
         try (InputStream input = new FileInputStream("src\\main\\resources\\config.properties")) {
 
@@ -60,6 +77,7 @@ public class App {
             // get the property value and print it out
             startPageUrl=prop.getProperty("url");
             imageSizeKilobytes=Integer.parseInt(prop.getProperty("size"));
+            pathToFolder=prop.getProperty("pathToFolder");
 
         } catch (IOException ex) {
             ex.printStackTrace();
